@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./jquery.js"></script>
+  <script src="./throttle.js"></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #angel {
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="./angel.gif" alt="" id="angel" />
+
+  <script>
+    $(function () {
+      // 1. 获取到图片
+      var angel = $('#angel')
+      function handler(obj) {  //obj拿的什么值
+        $(angel).css('top', obj.pageY + 'px').css('left', obj.pageX + 'px')
+        // console.log('ok')
+
+        // console.log(arguments);
+        //拿到的是一个对象 值在originalEvent
+      }
+      // 2. 绑定 mousemove 事件
+      $(document).on('mousemove', throttle(handler))
+
+
+
+
+      let sum1 = function () {
+        console.log(arguments)  //在没有参数的情况下 sum1自动调用arguments
+      }
+      // sum1(e)
+      // console.log(sum1);
+
+      $(document).on('mousemove', sum1(1))
+    })
+
+    // function sum() {
+    //   console.log(arguments)
+    // }
+    // sum({ name: 'jack' })  //
+  </script>
+</body>
+
+</html>

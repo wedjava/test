@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="text" id="ipt">
+
+  <script>
+    let ipt = document.querySelector('#ipt')
+    // 防抖（debounce）：频繁触发事件，只执行最后一次
+    // 防抖原理：利用定时器来实现的。下一次操作之前，先清除上一次的定时器。
+    let handler = function () {
+      console.log(this.value)
+      let reg = /\w/
+      if (reg.test(this.value)) return alert('校验通过')
+      alert('校验不通过')
+    }
+    // ipt.addEventListener('keyup', function () {
+    //   handler()
+    // })
+    ipt.addEventListener('keyup', debounce(handler))
+
+    // 防抖处理的函数，这个函数是个闭包，保存的有一个定时器变量
+    function debounce(fn, time = 500) {
+      // 定义一个定时器
+      let timer = null
+      // 返回一个函数
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn.apply(this)
+        }, time)
+      }
+    }
+
+  </script>
+</body>
+
+</html>

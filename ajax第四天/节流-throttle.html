@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      margin: 20px auto;
+      display: block;
+      width: 100px;
+      height: 44px;
+      line-height: 44px;
+      font-size: 20px;
+      background-color: skyblue;
+      color: white;
+      outline: none;
+      border: none;
+      border-radius: 22px;
+    }
+
+    .active {
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <button>👍</button>
+  <script>
+    let btn = document.querySelector('button')
+    let handler = function () {
+      // console.log(this)
+      this.classList.toggle('active')
+    }
+    btn.addEventListener('click', throttle(handler))
+
+    // 节流（throttle）：单位时间（例如1000）内，事件只执行一次。
+    function throttle(fn, time = 1000) {
+      // 厕所门默认开着的
+      let isOpen = true
+
+      return function () {
+        // 如果下一个人过来，发现门没开，那他就不能进厕所
+        if(!isOpen) return
+        // 当有人进来后，立马将门关上
+        isOpen = false
+        setTimeout(() => {
+          fn.apply(this)
+          // 事情做完以后把门打开
+          isOpen = true
+        }, time)
+      }
+    }
+  </script>
+</body>
+
+</html>
